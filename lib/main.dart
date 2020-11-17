@@ -29,12 +29,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // int _counter = 0;
 
+  //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    //   setState(() {
+    //     _counter++;
+    //   });
   }
 
   @override
@@ -49,10 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'free text',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
