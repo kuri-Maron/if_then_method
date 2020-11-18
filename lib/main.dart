@@ -10,7 +10,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'if then',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        // brightness: Brightness.dark,  //これでテキストカラーを白にすることも可能だが、他に影響あり
+        primaryColor: const Color(0xff00053A),
+        scaffoldBackgroundColor: const Color(0xff00053A),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(),
+          bodyText2: TextStyle(),
+        ).apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
+        // buttonColor: const Color(0xff32397C),
+        // backgroundColor: const Color(0xff00053A),
       ),
       home: MyHomePage(
           title: 'if then Method'
@@ -56,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
+        backgroundColor: const Color(0xff32397C),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
