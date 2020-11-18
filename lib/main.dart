@@ -10,19 +10,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'if then',
       theme: ThemeData(
-        // primarySwatch: Colors.blue,
         // brightness: Brightness.dark,  //これでテキストカラーを白にすることも可能だが、他に影響あり
         primaryColor: const Color(0xff00053A),
         scaffoldBackgroundColor: const Color(0xff00053A),
         textTheme: TextTheme(
-          bodyText1: TextStyle(),
+          bodyText1: TextStyle(), //このコード未理解
           bodyText2: TextStyle(),
         ).apply(
           bodyColor: Colors.white,
           displayColor: Colors.white,
         ),
-        // buttonColor: const Color(0xff32397C),
-        // backgroundColor: const Color(0xff00053A),
       ),
       home: MyHomePage(
           title: 'if then Method'
