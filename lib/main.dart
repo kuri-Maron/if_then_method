@@ -79,80 +79,86 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (context, index) {
           return Card(
             // child: Text('${items[index]}'),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('if'),
-                      Spacer(),
-                      Text('score: ${items[index]}')
-                    ],
+            child: ExpansionTile(
+              title: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('if'),
+                        Spacer(),
+                        Text('score: ${items[index]}')
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  // padding: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.only(
-                      left: 20.0, top: 8.0, right: 8.0, bottom: 8.0),
-                  child: Row(
-                    children: [
-                      Text('頭がモヤモヤしたら'),
-                    ],
+                  Padding(
+                    // padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(
+                        left: 20.0, top: 8.0, right: 8.0, bottom: 8.0),
+                    child: Row(
+                      children: [
+                        Text('頭がモヤモヤしたら'),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [Text('then')],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [Text('then')],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [Text('ゼロメモを書く。')],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [Text('ゼロメモを書く。')],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      //アイコンの配置バランス調整
-                      Container(
-                        child: SizedBox(
-                          width: 24.0,
+                  //試験的に、拡張タイルを追加してみる、
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        //アイコンの配置バランス調整
+                        Container(
+                          child: SizedBox(
+                            width: 24.0,
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      IconButton(
-                        icon: Icon(Icons.arrow_circle_up),
-                        onPressed: () {},
-                      ),
-                      // Container(),
-                      Spacer(),
-                      IconButton(
-                        icon: Icon(Icons.arrow_circle_down),
-                        onPressed: () {},
-                      ),
-                      Spacer(),
-                      // Container(),
-                      Icon(Icons.keyboard_arrow_down),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(Icons.arrow_circle_up),
+                          onPressed: () {},
+                        ),
+                        // Container(),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(Icons.arrow_circle_down),
+                          onPressed: () {},
+                        ),
+                        Spacer(),
+                        // Container(),
+                        Icon(Icons.keyboard_arrow_down),
 
-                      //カード内icon行のレイアウト案１
-                      // Expanded(
-                      //   child: SizedBox(
-                      //     height: 50.0,
-                      //     child: GridView.count(
-                      //       crossAxisCount: 6,
-                      //       // shrinkWrap: true,
-                      //       children: gridItemList,
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                        //カード内icon行のレイアウト案１
+                        // Expanded(
+                        //   child: SizedBox(
+                        //     height: 50.0,
+                        //     child: GridView.count(
+                        //       crossAxisCount: 6,
+                        //       // shrinkWrap: true,
+                        //       children: gridItemList,
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
+              ),
+              children: <Widget>[
+                Text('expand area!'),
               ],
             ),
           );
