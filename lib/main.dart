@@ -30,6 +30,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Item {
+  Item({
+    this.expandedValue,
+    this.headerValue,
+    this.isExpanded = false,
+  });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
+}
+
+List<Item> generateItems(int numberOfItems) {
+  return List.generate(numberOfItems, (int index) {
+    return Item(
+      headerValue: 'Panel $index',
+      expandedValue: 'This is item number $index',
+    );
+  });
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -42,7 +63,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // int _counter = 0;
   // final items = List<String>.generate(10000, (i) => "Item $i");
-  final items = List<String>.generate(10000, (i) => "$i");
+  // final items = List<String>.generate(10000, (i) => "$i");
+
+  List<Item> _data = generateItems(30);
 
   //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
   void _incrementCounter() {
@@ -73,96 +96,99 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        // itemExtent: 50, //指定の高さをもたせる？
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return Card(
-            // child: Text('${items[index]}'),
-            child: ExpansionTile(
-              title: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('if'),
-                        Spacer(),
-                        Text('score: ${items[index]}')
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    // padding: const EdgeInsets.all(8.0),
-                    padding: const EdgeInsets.only(
-                        left: 20.0, top: 8.0, right: 8.0, bottom: 8.0),
-                    child: Row(
-                      children: [
-                        Text('頭がモヤモヤしたら'),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [Text('then')],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [Text('ゼロメモを書く。')],
-                    ),
-                  ),
-                  //試験的に、拡張タイルを追加してみる、
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        //アイコンの配置バランス調整
-                        Container(
-                          child: SizedBox(
-                            width: 24.0,
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(Icons.arrow_circle_up),
-                          onPressed: () {},
-                        ),
-                        // Container(),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(Icons.arrow_circle_down),
-                          onPressed: () {},
-                        ),
-                        Spacer(),
-                        // Container(),
-                        Icon(Icons.keyboard_arrow_down),
-
-                        //カード内icon行のレイアウト案１
-                        // Expanded(
-                        //   child: SizedBox(
-                        //     height: 50.0,
-                        //     child: GridView.count(
-                        //       crossAxisCount: 6,
-                        //       // shrinkWrap: true,
-                        //       children: gridItemList,
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              children: <Widget>[
-                Text('expand area!'),
-              ],
-            ),
-          );
-        },
+      //TODO: この下の単位を関数で別だしする。（別ファイルにするかは検討中。
+      body: SingleChildScrollView(
+        // body: ListView.builder(
+        //   // itemExtent: 50, //指定の高さをもたせる？
+        //   // itemCount: items.length,
+        //   itemCount: _data.length,
+        //   itemBuilder: (context, index) {
+        child: _buildPanel(),
+        // return Card(
+        //   child: ExpansionTile(
+        //     title: Column(
+        //       children: <Widget>[
+        //         Padding(
+        //           padding: const EdgeInsets.all(8.0),
+        //           child: Row(
+        //             // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //             children: [
+        //               Text('if'),
+        //               Spacer(),
+        //               Text('score: ${items[index]}')
+        //             ],
+        //           ),
+        //         ),
+        //         Padding(
+        //           // padding: const EdgeInsets.all(8.0),
+        //           padding: const EdgeInsets.only(
+        //               left: 20.0, top: 8.0, right: 8.0, bottom: 8.0),
+        //           child: Row(
+        //             children: [
+        //               Text('頭がモヤモヤしたら'),
+        //             ],
+        //           ),
+        //         ),
+        //         Padding(
+        //           padding: const EdgeInsets.all(8.0),
+        //           child: Row(
+        //             children: [Text('then')],
+        //           ),
+        //         ),
+        //         Padding(
+        //           padding: const EdgeInsets.all(8.0),
+        //           child: Row(
+        //             children: [Text('ゼロメモを書く。')],
+        //           ),
+        //         ),
+        //         //試験的に、拡張タイルを追加してみる、
+        //         Padding(
+        //           padding: const EdgeInsets.all(8.0),
+        //           child: Row(
+        //             children: [
+        //               //アイコンの配置バランス調整
+        //               Container(
+        //                 child: SizedBox(
+        //                   width: 24.0,
+        //                 ),
+        //               ),
+        //               Spacer(),
+        //               IconButton(
+        //                 icon: Icon(Icons.arrow_circle_up),
+        //                 onPressed: () {},
+        //               ),
+        //               // Container(),
+        //               Spacer(),
+        //               IconButton(
+        //                 icon: Icon(Icons.arrow_circle_down),
+        //                 onPressed: () {},
+        //               ),
+        //               Spacer(),
+        //               // Container(),
+        //               Icon(Icons.keyboard_arrow_down),
+        //
+        //               //カード内icon行のレイアウト案１
+        //               // Expanded(
+        //               //   child: SizedBox(
+        //               //     height: 50.0,
+        //               //     child: GridView.count(
+        //               //       crossAxisCount: 6,
+        //               //       // shrinkWrap: true,
+        //               //       children: gridItemList,
+        //               //     ),
+        //               //   ),
+        //               // ),
+        //             ],
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //     children: <Widget>[
+        //       Text('expand area!'),
+        //     ],
+        //   ),
+        // );
+        // },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -170,6 +196,25 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpnaded) {
+        setState(() {
+          _data[index].isExpanded = !isExpnaded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return Text('header');
+          },
+          body: Text('body!'),
+          isExpanded: item.isExpanded,
+        );
+      }).toList(),
     );
   }
 
