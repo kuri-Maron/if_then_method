@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // final items = List<String>.generate(10000, (i) => "Item $i");
   // final items = List<String>.generate(10000, (i) => "$i");
 
-  List<Item> _data = generateItems(30);
+  List<Item> _data = generateItems(5);
 
   //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
   void _incrementCounter() {
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
           headerBuilder: (BuildContext context, bool isExpanded) {
-            return Text('header');
+            return Card(child: Text('header'));
           },
           body: Text('body!'),
           isExpanded: item.isExpanded,
