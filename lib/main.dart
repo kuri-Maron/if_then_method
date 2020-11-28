@@ -41,35 +41,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-  // final items = List<String>.generate(10000, (i) => "Item $i");
   final items = List<String>.generate(10000, (i) => "$i");
 
   //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
-  void _incrementCounter() {
-    //   setState(() {
-    //     _counter++;
-    //   });
-  }
+  void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {
-    //カードレイアウトの実装不採用案１
-    // var gridItemList = [
-    //   Container(),
-    //   IconButton(
-    //     icon: Icon(Icons.arrow_circle_up),
-    //     onPressed: () {},
-    //   ),
-    //   Container(),
-    //   IconButton(
-    //     icon: Icon(Icons.arrow_circle_down),
-    //     onPressed: () {},
-    //   ),
-    //   Container(),
-    //   Icon(Icons.keyboard_arrow_down),
-    // ];
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -138,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   children: <Widget>[
-                    // Text('expand area!'),
+                    //　タイルの拡張エリア
                     ListTile(
                       title: DefaultTextStyle.merge(
                         style: TextStyle(
@@ -171,10 +149,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                               ),
                             ),
+                            //ボタン配置の行
                             Row(
                               mainAxisAlignment: MainAxisAlignment.values[4],
                               children: [
-                                // Spacer(),
+                                //TODO： TextStyleの外だし,ButtonThemeがあればそこで定義する
                                 FlatButton(
                                   child: const Text(
                                     '編集',
@@ -219,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+                // カード下部の固定行
                 Row(
                   children: [
                     //アイコンの配置バランス調整
@@ -227,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     IconButton(
                       icon: Icon(Icons.arrow_circle_up),
+                      //TODO: 関数実装
                       onPressed: () {},
                     ),
                     // Container(),
@@ -235,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     IconButton(
                       icon: Icon(Icons.arrow_circle_down),
+                      //TODO: 関数実装
                       onPressed: () {},
                     ),
                     Spacer(
@@ -244,18 +226,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Text('score: ${items[index]}'),
                     ),
-
-                    //カード内icon行のレイアウト案１
-                    // Expanded(
-                    //   child: SizedBox(
-                    //     height: 50.0,
-                    //     child: GridView.count(
-                    //       crossAxisCount: 6,
-                    //       // shrinkWrap: true,
-                    //       children: gridItemList,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ],
@@ -264,6 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        //TODO: 関数の実装
         onPressed: _incrementCounter,
         backgroundColor: const Color(0xff32397C),
         tooltip: 'Increment',
@@ -271,12 +242,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-// 関数でただ単に、指定のウィジェットを返す。直接書き込むべきだと気づく。
-// Widget _getIconButton(IconData iconData) {
-//   return IconButton(
-//     icon: Icon(iconData),
-//     onPressed: () {},
-//   );
-// }
 }
