@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:if_then_method/create_item_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +13,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'if then',
       theme: ThemeData(
-        // brightness: Brightness.dark, //これでテキストカラーを白にすることも可能だが、他に影響あり
+        // TODO: ダークテーマをベースにテキストカラーやカードバックグランドだけ、適宜スタイルカスタマイズすること
+        brightness: Brightness.dark, //これでテキストカラーを白にすることも可能だが、他に影響あり
         primaryColor: const Color(0xff00053A),
         scaffoldBackgroundColor: const Color(0xff00053A),
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(
+            color: Colors.white,
+          ),
+          labelStyle: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         // accentTextTheme: TextTheme(),
         // textTheme: TextTheme(
         //   bodyText1: TextStyle(), //このコード未理解
@@ -25,8 +35,8 @@ class MyApp extends StatelessWidget {
         // ),
       ),
       home: MyHomePage(
-          title: 'if then Method'
-              ''),
+        title: 'if then Method',
+      ),
     );
   }
 }
@@ -44,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final items = List<String>.generate(10000, (i) => "$i");
 
   //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
-  void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {
@@ -235,9 +244,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateItemPage()),
+          );
+        },
         backgroundColor: const Color(0xff32397C),
-        tooltip: 'Increment',
+        tooltip: 'CREATE',
         child: Icon(Icons.add),
       ),
     );
