@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:if_then_method/create_item_page.dart';
+import 'package:if_then_method/ithen_Item.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,7 +52,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final items = List<String>.generate(10000, (i) => "$i");
+  // var _items = List<String>.generate(3, (i) => "$i");
+  var _items = List<IfthenCard>.generate(2, (i) {
+    return IfthenCard(
+      ifText: 'hoge',
+      thenText: 'fuga',
+      exceptionText: 'bar',
+      index: i,
+    );
+  });
 
   //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
 
@@ -63,192 +72,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.builder(
         // itemExtent: 50, //指定の高さをもたせる？
-        itemCount: items.length,
+        itemCount: _items.length,
         itemBuilder: (context, index) {
-          return Card(
-            // child: Text('${items[index]}'),
-            child: Column(
-              children: <Widget>[
-                ExpansionTile(
-                  title: DefaultTextStyle.merge(
-                    style: TextStyle(
-                      color: const Color(0xff00053A),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text('if'),
-                              // Spacer(),
-                              // Text('score: ${items[index]}')
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          // padding: const EdgeInsets.all(8.0),
-                          padding: const EdgeInsets.only(
-                            left: 20.0,
-                            top: 8.0,
-                            right: 8.0,
-                            bottom: 8.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                '頭がモヤモヤしたら',
-                                style: TextStyle(),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [Text('then')],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20.0,
-                            top: 8.0,
-                            right: 8.0,
-                            bottom: 8.0,
-                          ),
-                          child: Row(
-                            children: [Text('ゼロメモを書く。')],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  children: <Widget>[
-                    //　タイルの拡張エリア
-                    ListTile(
-                      title: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: const Color(0xff00053A),
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'exception',
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 20.0,
-                                top: 8.0,
-                                right: 8.0,
-                                bottom: 8.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    '瞑想する。',
-                                  )
-                                ],
-                              ),
-                            ),
-                            //ボタン配置の行
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.values[4],
-                              children: [
-                                //TODO： TextStyleの外だし,ButtonThemeがあればそこで定義する
-                                FlatButton(
-                                  child: const Text(
-                                    '編集',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  textColor: const Color(0xff00053A),
-                                  shape: const UnderlineInputBorder(),
-                                  onPressed: () {},
-                                ),
-                                FlatButton(
-                                  child: const Text(
-                                    'アーカイブ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  textColor: const Color(0xff00053A),
-                                  shape: const UnderlineInputBorder(),
-                                  onPressed: () {},
-                                ),
-                                FlatButton(
-                                  child: const Text(
-                                    '削除',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  textColor: const Color(0xff00053A),
-                                  shape: const UnderlineInputBorder(),
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                // カード下部の固定行
-                Row(
-                  children: [
-                    //アイコンの配置バランス調整
-                    Spacer(
-                      flex: 3,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_circle_up),
-                      //TODO: 関数実装
-                      onPressed: () {},
-                    ),
-                    // Container(),
-                    Spacer(
-                      flex: 3,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_circle_down),
-                      //TODO: 関数実装
-                      onPressed: () {},
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text('score: ${items[index]}'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
+          return _items[index];
+          // return IfthenCard(
+          //   // items: _items,
+          //   ifText: 'hoge',
+          //   thenText: 'fuga',
+          //   exceptionText: 'bar',
+          //   index: index,
+          // );
         },
       ),
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          var item = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => CreateItemPage()),
           );
+          setState(() {
+            _items.add(item);
+          });
         },
         backgroundColor: const Color(0xff32397C),
         tooltip: 'CREATE',
