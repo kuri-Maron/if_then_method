@@ -1,31 +1,43 @@
 import 'package:flutter/material.dart';
 
 //TODO: 多分、ステートフルにする必要がある！
-class IfthenCard extends StatelessWidget {
-  const IfthenCard({
+class IfThenCard extends StatefulWidget {
+  IfThenCard({
     Key key,
-    // @required List<String> items,
     String ifText,
     String thenText,
     String exceptionText,
     int index,
-    // })  : _items = items,
+    this.score,
   })  : _ifText = ifText,
         _thenText = thenText,
         _exceptionText = exceptionText,
-        _index = index,
+        // _index = index,
+        // _score = score,
         super(key: key);
 
-  // final List<String> _items;
   final String _ifText;
   final String _thenText;
   final String _exceptionText;
-  final int _index;
+  // final int _index;
+  // final int _score;
+  int score;
+
+  @override
+  _IfThenCardState createState() => _IfThenCardState();
+}
+
+class _IfThenCardState extends State<IfThenCard> {
+  void _incrementScore() {
+    setState(() {
+      widget.score++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      // child: Text('${items[index]}'),
+      // color: Colors.grey,
       child: Column(
         children: <Widget>[
           ExpansionTile(
@@ -40,7 +52,14 @@ class IfthenCard extends StatelessWidget {
                     child: Row(
                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text('if'),
+                        Text(
+                          'if',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         // Spacer(),
                         // Text('score: ${items[index]}')
                       ],
@@ -57,7 +76,7 @@ class IfthenCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          _ifText,
+                          widget._ifText,
                         ),
                       ],
                     ),
@@ -65,7 +84,16 @@ class IfthenCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      children: [Text('then')],
+                      children: [
+                        Text(
+                          'then',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -76,7 +104,7 @@ class IfthenCard extends StatelessWidget {
                       bottom: 8.0,
                     ),
                     child: Row(
-                      children: [Text(_thenText)],
+                      children: [Text(widget._thenText)],
                     ),
                   ),
                 ],
@@ -97,6 +125,11 @@ class IfthenCard extends StatelessWidget {
                           children: [
                             Text(
                               'exception',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
                             )
                           ],
                         ),
@@ -111,7 +144,7 @@ class IfthenCard extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              _exceptionText,
+                              widget._exceptionText,
                             )
                           ],
                         ),
@@ -175,7 +208,7 @@ class IfthenCard extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.arrow_circle_up),
                 //TODO: 関数実装
-                onPressed: () {},
+                onPressed: _incrementScore,
               ),
               // Container(),
               Spacer(
@@ -192,7 +225,7 @@ class IfthenCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 // child: Text('score: ${_index}'),
-                child: Text('score: $_index'),
+                child: Text('score: ${widget.score}'),
               ),
             ],
           ),

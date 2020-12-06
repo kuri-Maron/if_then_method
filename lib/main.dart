@@ -18,6 +18,13 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark, //これでテキストカラーを白にすることも可能だが、他に影響あり
         primaryColor: const Color(0xff00053A),
         scaffoldBackgroundColor: const Color(0xff00053A),
+        cardTheme: CardTheme(
+          color: Colors.white,
+          // color: Colors.white70,
+        ),
+        iconTheme: IconThemeData(
+          color: const Color(0xff00053A),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(
             color: Colors.white,
@@ -27,13 +34,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
         // accentTextTheme: TextTheme(),
-        // textTheme: TextTheme(
-        //   bodyText1: TextStyle(), //このコード未理解
-        //   bodyText2: TextStyle(),
-        // ).apply(
-        //   bodyColor: Colors.white,
-        //   displayColor: Colors.white,
-        // ),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(), //このコード未理解
+          bodyText2: TextStyle(),
+        ).apply(
+          bodyColor: const Color(0xff00053A),
+          displayColor: const Color(0xff00053A),
+        ),
       ),
       home: MyHomePage(
         title: 'if then Method',
@@ -53,12 +60,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // var _items = List<String>.generate(3, (i) => "$i");
-  var _items = List<IfthenCard>.generate(2, (i) {
-    return IfthenCard(
+  var _items = List<IfThenCard>.generate(2, (i) {
+    return IfThenCard(
       ifText: 'hoge',
       thenText: 'fuga',
       exceptionText: 'bar',
       index: i,
+      score: 0,
     );
   });
 
