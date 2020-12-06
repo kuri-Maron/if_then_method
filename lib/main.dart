@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'if then',
       theme: ThemeData(
+        // elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle()),
         // TODO: ダークテーマをベースにテキストカラーやカードバックグランドだけ、適宜スタイルカスタマイズすること
         brightness: Brightness.dark, //これでテキストカラーを白にすることも可能だが、他に影響あり
         primaryColor: const Color(0xff00053A),
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           ),
           labelStyle: TextStyle(
             color: Colors.white,
+            fontSize: 30,
           ),
         ),
         // accentTextTheme: TextTheme(),
@@ -60,7 +62,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // var _items = List<String>.generate(3, (i) => "$i");
-  var _items = List<IfThenCard>.generate(2, (i) {
+  var _items = List<IfThenCard>.generate(5, (i) {
     return IfThenCard(
       ifText: 'hoge',
       thenText: 'fuga',
@@ -79,17 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView.builder(
-        // itemExtent: 50, //指定の高さをもたせる？
-        itemCount: _items.length,
+        shrinkWrap: true,
+        itemCount: _items.length + 1,
         itemBuilder: (context, index) {
-          return _items[index];
-          // return IfthenCard(
-          //   // items: _items,
-          //   ifText: 'hoge',
-          //   thenText: 'fuga',
-          //   exceptionText: 'bar',
-          //   index: index,
-          // );
+          return index != _items.length
+              ? _items[index]
+              : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -99,11 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => CreateItemPage()),
           );
-          setState(() {
-            _items.add(item);
-          });
+          if (item != null)
+            setState(() {
+              _items.add(item);
+            });
         },
-        backgroundColor: const Color(0xff32397C),
+        // backgroundColor: const Color(0xff32397C),
+        backgroundColor: Colors.pink,
         tooltip: 'CREATE',
         child: Icon(Icons.add),
       ),

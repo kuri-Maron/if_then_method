@@ -26,100 +26,105 @@ class _CreateItemPageState extends State<CreateItemPage> {
         style: TextStyle(
           color: Colors.white,
         ),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            // color: Colors.grespaceAroundy,
-            // alignment: Alignment.topCentespaceAroundr,
-            // alignment: Alignment.center,
-            padding: EdgeInsets.all(50.0),
-            child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextFormField(
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    labelText: "if",
-                    hintText: 'もし〜ならば',
-                  ),
-                  validator: (value) {
-                    // TODO： テキストカラーを白にする
-                    if (value.isEmpty) {
-                      return '必須入力です';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => setState(() {
-                    _ifText = value;
-                  }),
-                ),
-                TextFormField(
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    labelText: "then",
-                    hintText: '〜する',
-                  ),
-                  validator: (value) {
-                    // TODO： テキストカラーを白にする
-                    if (value.isEmpty) {
-                      return '必須入力です';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => setState(() {
-                    _thenText = value;
-                  }),
-                ),
-                TextFormField(
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    labelText: "exception",
-                    hintText: ' 例外のアクションを入力',
-                  ),
-                  onSaved: (value) => setState(() {
-                    _exceptionText = value;
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.deepOrangeAccent),
-                      foregroundColor: MaterialStateProperty.all(
-                        const Color(0xff00053A),
-                      ),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Container(
+              // color: Colors.grespaceAroundy,
+              // alignment: Alignment.topCentespaceAroundr,
+              // alignment: Alignment.center,
+              padding: EdgeInsets.all(50.0),
+              child: Column(
+                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  TextFormField(
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    onPressed: () {
-                      print("test");
-                      if (_formKey.currentState.validate()) {
-                        // Process data.
-                        this._formKey.currentState.save();
-                        // Map<String, String> item = {
-                        //   'ifText': _ifText,
-                        //   'thenTest': _thenText,
-                        //   'exceptionText': _exceptionText,
-                        IfThenCard item = IfThenCard(
-                          ifText: _ifText,
-                          thenText: _thenText,
-                          exceptionText: _exceptionText,
-                          score: 0,
-                        );
-                        // };
-                        Navigator.of(context).pop(item);
+                    decoration: const InputDecoration(
+                      labelText: "if",
+                      hintText: 'もし〜ならば',
+                    ),
+                    validator: (value) {
+                      // TODO： テキストカラーを白にする
+                      if (value.isEmpty) {
+                        return '必須入力です';
                       }
+                      return null;
                     },
-                    child: Text('OK'),
+                    onSaved: (value) => setState(() {
+                      _ifText = value;
+                    }),
                   ),
-                ),
-              ],
+                  TextFormField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: "then",
+                      hintText: '〜する',
+                    ),
+                    validator: (value) {
+                      // TODO： テキストカラーを白にする
+                      if (value.isEmpty) {
+                        return '必須入力です';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) => setState(() {
+                      _thenText = value;
+                    }),
+                  ),
+                  TextFormField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: "exception",
+                      hintText: ' 例外のアクションを入力',
+                    ),
+                    onSaved: (value) => setState(() {
+                      _exceptionText = value;
+                    }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        // 透過率を設定方法は？
+                        // overlayColor:
+                        //     MaterialStateProperty.all(Colors.orangeAccent),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white70),
+                        foregroundColor: MaterialStateProperty.all(
+                          const Color(0xff00053A),
+                        ),
+                      ),
+                      onPressed: () {
+                        print("test");
+                        if (_formKey.currentState.validate()) {
+                          // Process data.
+                          this._formKey.currentState.save();
+                          // Map<String, String> item = {
+                          //   'ifText': _ifText,
+                          //   'thenTest': _thenText,
+                          //   'exceptionText': _exceptionText,
+                          IfThenCard item = IfThenCard(
+                            ifText: _ifText,
+                            thenText: _thenText,
+                            exceptionText: _exceptionText,
+                            score: 0,
+                          );
+                          // };
+                          Navigator.of(context).pop(item);
+                        }
+                      },
+                      child: Text('OK'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
