@@ -21,16 +21,25 @@ class IfThenCard extends StatefulWidget {
   final String _exceptionText;
   // final int _index;
   // final int _score;
-  int score;
+  final int score;
 
   @override
   _IfThenCardState createState() => _IfThenCardState();
 }
 
 class _IfThenCardState extends State<IfThenCard> {
+  int _score;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _score = widget.score;
+  }
+
   void _incrementScore() {
     setState(() {
-      widget.score++;
+      // widget.score++;
+      _score++;
     });
   }
 
@@ -225,7 +234,8 @@ class _IfThenCardState extends State<IfThenCard> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 // child: Text('score: ${_index}'),
-                child: Text('score: ${widget.score}'),
+                // child: Text('score: ${widget.score}'),
+                child: Text('score: $_score'),
               ),
             ],
           ),
