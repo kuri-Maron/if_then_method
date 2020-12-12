@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:if_then_method/create_item_page.dart';
-import 'package:if_then_method/ithen_Item.dart';
+import 'package:if_then_method/if_then_card.dart';
+import 'package:if_then_method/if_then_data.dart';
+// import 'package:if_then_method/if_then_item_sample2.dart';
 
 void main() {
   runApp(MyApp());
@@ -62,20 +64,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // var _items = List<String>.generate(3, (i) => "$i");
-  var _items = List<IfThenCard>.generate(5, (i) {
-    return IfThenCard(
-      ifText: 'hoge',
-      thenText: 'fuga',
-      exceptionText: 'bar',
-      index: i,
-      score: 0,
-    );
-  });
 
-  //stateクラスの中に、フィールドに対しての操作をするメソッドを定義する
+  // var _items = List<IfThenCard>.generate(5, (i) {
+  //   return IfThenCard(
+  //     ifText: 'hoge',
+  //     thenText: 'fuga',
+  //     exceptionText: 'bar',
+  //     // callBackIncrementScore:
+  //     // score: 0,
+  //   );
+  // });
+
+  List<IfThenData> _items = List<IfThenData>.generate(
+      2,
+      (index) => IfThenData(
+            ifText: 'hoge',
+            thenText: 'fuga',
+            exceptionText: 'bar',
+            // score: 1,
+          ));
 
   @override
   Widget build(BuildContext context) {
+    Function deleteCard = (int i) {
+      setState(() {
+        _items.removeAt(i);
+      });
+    };
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -85,7 +101,26 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: _items.length + 1,
         itemBuilder: (context, index) {
           return index != _items.length
-              ? _items[index]
+              // ? _items[index]
+              ? IfThenCard(
+                  ifText: _items[index].ifText,
+                  thenText: _items[index].thenText,
+                  exceptionText: _items[index].exceptionText,
+                  score: _items[index].score,
+                  callBackIncrementScore: () {
+                    setState(() {
+                      _items[index].score++;
+                    });
+                  },
+                  callBackDecrementScore: () {
+                    setState(() {
+                      _items[index].score--;
+                    });
+                  },
+                  callBackDeleteCard: () {
+                    deleteCard(index);
+                  },
+                )
               : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
         },
       ),

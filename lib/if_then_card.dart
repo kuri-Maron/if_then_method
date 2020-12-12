@@ -1,52 +1,30 @@
 import 'package:flutter/material.dart';
 
-//TODO: 多分、ステートフルにする必要がある！
-class IfThenCard extends StatefulWidget {
+class IfThenCard extends StatelessWidget {
   IfThenCard({
     Key key,
-    String ifText,
-    String thenText,
-    String exceptionText,
-    int index,
+    this.ifText,
+    this.thenText,
+    this.exceptionText,
     this.score,
-  })  : _ifText = ifText,
-        _thenText = thenText,
-        _exceptionText = exceptionText,
-        // _index = index,
-        // _score = score,
+    this.callBackIncrementScore,
+    this.callBackDecrementScore,
+    this.callBackDeleteCard,
+  }) :
+// score = score,
         super(key: key);
 
-  final String _ifText;
-  final String _thenText;
-  final String _exceptionText;
-  // final int _index;
-  // final int _score;
+  final String ifText;
+  final String thenText;
+  final String exceptionText;
   final int score;
-
-  @override
-  _IfThenCardState createState() => _IfThenCardState();
-}
-
-class _IfThenCardState extends State<IfThenCard> {
-  int _score;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _score = widget.score;
-  }
-
-  void _incrementScore() {
-    setState(() {
-      // widget.score++;
-      _score++;
-    });
-  }
+  final Function callBackIncrementScore;
+  final Function callBackDecrementScore;
+  final Function callBackDeleteCard;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      // color: Colors.grey,
       child: Column(
         children: <Widget>[
           ExpansionTile(
@@ -56,10 +34,10 @@ class _IfThenCardState extends State<IfThenCard> {
               ),
               child: Column(
                 children: <Widget>[
+                  // 1行目
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'if',
@@ -69,11 +47,10 @@ class _IfThenCardState extends State<IfThenCard> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // Spacer(),
-                        // Text('score: ${items[index]}')
                       ],
                     ),
                   ),
+                  // 2行目
                   Padding(
                     // padding: const EdgeInsets.all(8.0),
                     padding: const EdgeInsets.only(
@@ -85,7 +62,7 @@ class _IfThenCardState extends State<IfThenCard> {
                     child: Row(
                       children: [
                         Text(
-                          widget._ifText,
+                          ifText,
                         ),
                       ],
                     ),
@@ -113,7 +90,7 @@ class _IfThenCardState extends State<IfThenCard> {
                       bottom: 8.0,
                     ),
                     child: Row(
-                      children: [Text(widget._thenText)],
+                      children: [Text(thenText)],
                     ),
                   ),
                 ],
@@ -153,7 +130,7 @@ class _IfThenCardState extends State<IfThenCard> {
                         child: Row(
                           children: [
                             Text(
-                              widget._exceptionText,
+                              exceptionText,
                             )
                           ],
                         ),
@@ -197,7 +174,7 @@ class _IfThenCardState extends State<IfThenCard> {
                             ),
                             textColor: const Color(0xff00053A),
                             shape: const UnderlineInputBorder(),
-                            onPressed: () {},
+                            onPressed: callBackDeleteCard,
                           ),
                         ],
                       ),
@@ -214,19 +191,20 @@ class _IfThenCardState extends State<IfThenCard> {
               Spacer(
                 flex: 3,
               ),
+              //インクリメント
               IconButton(
                 icon: Icon(Icons.arrow_circle_up),
                 //TODO: 関数実装
-                onPressed: _incrementScore,
+                onPressed: callBackIncrementScore,
               ),
               // Container(),
               Spacer(
                 flex: 3,
               ),
+              //デクリメント
               IconButton(
                 icon: Icon(Icons.arrow_circle_down),
-                //TODO: 関数実装
-                onPressed: () {},
+                onPressed: callBackDecrementScore,
               ),
               Spacer(
                 flex: 1,
@@ -235,7 +213,7 @@ class _IfThenCardState extends State<IfThenCard> {
                 padding: const EdgeInsets.all(16.0),
                 // child: Text('score: ${_index}'),
                 // child: Text('score: ${widget.score}'),
-                child: Text('score: $_score'),
+                child: Text('score: $score'),
               ),
             ],
           ),
@@ -244,3 +222,16 @@ class _IfThenCardState extends State<IfThenCard> {
     );
   }
 }
+
+// class _IfThenCardState extends State<IfThenCard> {
+//   int _score;
+//   @override
+//   void initState() {
+//     super.initState();
+//     _score = widget.score;
+//   }
+//
+//
+//
+//
+// }
