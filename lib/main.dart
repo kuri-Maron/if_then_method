@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:if_then_method/create_item_page.dart';
-import 'package:if_then_method/if_then_card.dart';
 import 'package:if_then_method/if_then_data.dart';
+
+import 'if_then_card.dart';
 // import 'package:if_then_method/if_then_item_sample2.dart';
 
 void main() {
@@ -66,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<IfThenData> _items = List<IfThenData>.generate(
       2,
       (index) => IfThenData(
+            key: UniqueKey(),
             ifText: 'hoge',
             thenText: 'fuga',
             exceptionText: 'bar',
@@ -83,37 +85,65 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        // shrinkWrap: true,
-        itemCount: _items.length + 1,
-        itemBuilder: (context, index) {
-          return index != _items.length
-              // ? _items[index]
-              ? IfThenCard(
-                  _items[index],
-                  callBackIncrementScore: () {
-                    setState(() {
-                      _items[index].score++;
-                    });
-                  },
-                  callBackDecrementScore: () {
-                    setState(() {
-                      _items[index].score--;
-                    });
-                  },
-                  callBackDeleteCard: () {
-                    deleteCard(index);
-                  },
-                  callBackEditCard: (IfThenData item) {
-                    if (item != null)
-                      setState(() {
-                        _items[index] = item;
-                      });
-                  },
-                )
-              : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
-        },
+      body: ReorderableListView(
+        onReorder: (int oldIndex, int newIndex) {},
+        children: [
+          for (IfThenData item in _items)
+            IfThenCard(
+              item,
+              callBackIncrementScore: () {
+                setState(() {
+                  item.score++;
+                });
+              },
+              callBackDecrementScore: () {
+                setState(() {
+                  item.score--;
+                });
+              },
+              callBackDeleteCard: () {
+                // deleteCard(index);
+              },
+              callBackEditCard: (IfThenData newItem) {
+                if (newItem != null)
+                  setState(() {
+                    item = newItem;
+                  });
+              },
+            ),
+        ],
       ),
+      // body: ListView.builder(
+      //   // shrinkWrap: true,
+      //   itemCount: _items.length + 1,
+      //   itemBuilder: (context, index) {
+      //     return index != _items.length
+      //         // ? _items[index]
+      //         ? IfThenCard(
+      //             _items[index],
+      //             callBackIncrementScore: () {
+      //               setState(() {
+      //                 _items[index].score++;
+      //               });
+      //             },
+      //             callBackDecrementScore: () {
+      //               setState(() {
+      //                 _items[index].score--;
+      //               });
+      //             },
+      //             callBackDeleteCard: () {
+      //               deleteCard(index);
+      //             },
+      //             callBackEditCard: (IfThenData item) {
+      //               if (item != null)
+      //                 setState(() {
+      //                   _items[index] = item;
+      //                 });
+      //             },
+      //           )
+      //         : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
         onPressed: () async {

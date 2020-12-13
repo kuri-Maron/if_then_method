@@ -104,6 +104,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                           if (_formKey.currentState.validate()) {
                             this._formKey.currentState.save();
                             IfThenData item = IfThenData(
+                              key: UniqueKey(),
                               ifText: _ifText,
                               thenText: _thenText,
                               exceptionText: _exceptionText,

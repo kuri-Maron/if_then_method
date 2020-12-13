@@ -10,11 +10,12 @@ class IfThenCard extends StatelessWidget {
     this.callBackDecrementScore,
     this.callBackDeleteCard,
     this.callBackEditCard,
-  }) :
+  })  : key = ifThenData.key,
 // score = score,
         super(key: key);
 
   final IfThenData ifThenData;
+  final Key key;
   final Function callBackIncrementScore;
   final Function callBackDecrementScore;
   final Function callBackDeleteCard;

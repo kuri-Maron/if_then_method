@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:if_then_method/if_then_data.dart';
 
 class EditItemPage extends StatefulWidget {
-  // EditItemPage({})
+  EditItemPage(this.ifThenData);
+  final IfThenData ifThenData;
 
   @override
   _EditItemPageState createState() => _EditItemPageState();
@@ -47,6 +48,7 @@ class _EditItemPageState extends State<EditItemPage> {
                       style: TextStyle(
                         color: Colors.white,
                       ),
+                      initialValue: widget.ifThenData.ifText,
                       decoration: InputDecoration(
                         labelText: 'if',
                         hintText: 'もし〜ならば',
@@ -65,6 +67,7 @@ class _EditItemPageState extends State<EditItemPage> {
                       style: TextStyle(
                         color: Colors.white,
                       ),
+                      initialValue: widget.ifThenData.thenText,
                       decoration: const InputDecoration(
                         labelText: "then",
                         hintText: '〜する',
@@ -84,6 +87,7 @@ class _EditItemPageState extends State<EditItemPage> {
                       style: TextStyle(
                         color: Colors.white,
                       ),
+                      initialValue: widget.ifThenData.exceptionText,
                       decoration: const InputDecoration(
                         labelText: "exception",
                         hintText: ' 例外のアクションを入力',
@@ -106,9 +110,11 @@ class _EditItemPageState extends State<EditItemPage> {
                           if (_formKey.currentState.validate()) {
                             this._formKey.currentState.save();
                             IfThenData item = IfThenData(
+                              key: UniqueKey(),
                               ifText: _ifText,
                               thenText: _thenText,
                               exceptionText: _exceptionText,
+                              score: widget.ifThenData.score,
                             );
                             // };
                             Navigator.of(context).pop(item);
