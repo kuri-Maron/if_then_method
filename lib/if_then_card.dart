@@ -146,7 +146,8 @@ class IfThenCard extends StatelessWidget {
                               var item = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => EditItemPage()),
+                                    builder: (context) =>
+                                        EditItemPage(ifThenData)),
                               );
                               callBackEditCard(item);
                             },

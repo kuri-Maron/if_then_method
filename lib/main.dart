@@ -63,25 +63,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // var _items = List<String>.generate(3, (i) => "$i");
-
-  // var _items = List<IfThenCard>.generate(5, (i) {
-  //   return IfThenCard(
-  //     ifText: 'hoge',
-  //     thenText: 'fuga',
-  //     exceptionText: 'bar',
-  //     // callBackIncrementScore:
-  //     // score: 0,
-  //   );
-  // });
-
   List<IfThenData> _items = List<IfThenData>.generate(
       2,
       (index) => IfThenData(
             ifText: 'hoge',
             thenText: 'fuga',
             exceptionText: 'bar',
-            // score: 1,
           ));
 
   @override
@@ -97,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView.builder(
-        shrinkWrap: true,
+        // shrinkWrap: true,
         itemCount: _items.length + 1,
         itemBuilder: (context, index) {
           return index != _items.length
