@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:if_then_method/edit_item_page.dart';
+import 'package:if_then_method/if_then_data.dart';
 
 class IfThenCard extends StatelessWidget {
-  IfThenCard({
+  IfThenCard(
+    this.ifThenData, {
     Key key,
-    this.ifText,
-    this.thenText,
-    this.exceptionText,
-    this.score,
     this.callBackIncrementScore,
     this.callBackDecrementScore,
     this.callBackDeleteCard,
+    this.callBackEditCard,
   }) :
 // score = score,
         super(key: key);
 
-  final String ifText;
-  final String thenText;
-  final String exceptionText;
-  final int score;
+  final IfThenData ifThenData;
   final Function callBackIncrementScore;
   final Function callBackDecrementScore;
   final Function callBackDeleteCard;
+  final Function callBackEditCard;
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +59,7 @@ class IfThenCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Text(
-                          ifText,
-                        ),
+                        Text(ifThenData.ifText),
                       ],
                     ),
                   ),
@@ -90,7 +86,7 @@ class IfThenCard extends StatelessWidget {
                       bottom: 8.0,
                     ),
                     child: Row(
-                      children: [Text(thenText)],
+                      children: [Text(ifThenData.thenText)],
                     ),
                   ),
                 ],
@@ -128,11 +124,7 @@ class IfThenCard extends StatelessWidget {
                           bottom: 8.0,
                         ),
                         child: Row(
-                          children: [
-                            Text(
-                              exceptionText,
-                            )
-                          ],
+                          children: [Text(ifThenData.exceptionText)],
                         ),
                       ),
                       //ボタン配置の行
@@ -150,7 +142,14 @@ class IfThenCard extends StatelessWidget {
                             ),
                             textColor: const Color(0xff00053A),
                             shape: const UnderlineInputBorder(),
-                            onPressed: () {},
+                            onPressed: () async {
+                              var item = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditItemPage()),
+                              );
+                              callBackEditCard(item);
+                            },
                           ),
                           FlatButton(
                             child: const Text(
@@ -213,7 +212,7 @@ class IfThenCard extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 // child: Text('score: ${_index}'),
                 // child: Text('score: ${widget.score}'),
-                child: Text('score: $score'),
+                child: Text('score: ${ifThenData.score}'),
               ),
             ],
           ),

@@ -103,10 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return index != _items.length
               // ? _items[index]
               ? IfThenCard(
-                  ifText: _items[index].ifText,
-                  thenText: _items[index].thenText,
-                  exceptionText: _items[index].exceptionText,
-                  score: _items[index].score,
+                  _items[index],
                   callBackIncrementScore: () {
                     setState(() {
                       _items[index].score++;
@@ -119,6 +116,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   callBackDeleteCard: () {
                     deleteCard(index);
+                  },
+                  callBackEditCard: (IfThenData item) {
+                    if (item != null)
+                      setState(() {
+                        _items[index] = item;
+                      });
                   },
                 )
               : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
