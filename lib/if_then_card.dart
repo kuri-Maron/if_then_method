@@ -25,6 +25,7 @@ class IfThenCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ExpansionTile(
             title: DefaultTextStyle.merge(

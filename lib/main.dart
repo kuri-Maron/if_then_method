@@ -75,9 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Function deleteCard = (int i) {
+    Function deleteCard = (IfThenData item) {
       setState(() {
-        _items.removeAt(i);
+        // _items.removeAt(i);
+        _items.remove(item);
       });
     };
 
@@ -86,7 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ReorderableListView(
-        onReorder: (int oldIndex, int newIndex) {},
+        onReorder: (int oldIndex, int newIndex) {
+          print('$oldIndex --> $newIndex .');
+          if (oldIndex < newIndex) newIndex -= 1;
+          final IfThenData item = _items.removeAt(oldIndex);
+
+          setState(() {
+            _items.insert(newIndex, item);
+          });
+        },
         children: [
           for (IfThenData item in _items)
             IfThenCard(
@@ -102,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               callBackDeleteCard: () {
-                // deleteCard(index);
+                deleteCard(item);
               },
               callBackEditCard: (IfThenData newItem) {
                 if (newItem != null)
@@ -113,37 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
         ],
       ),
-      // body: ListView.builder(
-      //   // shrinkWrap: true,
-      //   itemCount: _items.length + 1,
-      //   itemBuilder: (context, index) {
-      //     return index != _items.length
-      //         // ? _items[index]
-      //         ? IfThenCard(
-      //             _items[index],
-      //             callBackIncrementScore: () {
-      //               setState(() {
-      //                 _items[index].score++;
-      //               });
-      //             },
-      //             callBackDecrementScore: () {
-      //               setState(() {
-      //                 _items[index].score--;
-      //               });
-      //             },
-      //             callBackDeleteCard: () {
-      //               deleteCard(index);
-      //             },
-      //             callBackEditCard: (IfThenData item) {
-      //               if (item != null)
-      //                 setState(() {
-      //                   _items[index] = item;
-      //                 });
-      //             },
-      //           )
-      //         : SizedBox(width: 1, height: 65); // FABの下のテキストが見えなくなるのを防ぐ
-      //   },
-      // ),
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
         onPressed: () async {
