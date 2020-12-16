@@ -5,7 +5,6 @@ import 'package:if_then_method/create_item_page.dart';
 import 'package:if_then_method/if_then_data.dart';
 
 import 'if_then_card.dart';
-// import 'package:if_then_method/if_then_item_sample2.dart';
 
 void main() {
   runApp(MyApp());
