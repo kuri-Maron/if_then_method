@@ -1,16 +1,23 @@
 // import 'dart:html';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:if_then_method/auth_page.dart';
 import 'package:if_then_method/create_item_page.dart';
 import 'package:if_then_method/if_then_data.dart';
 
 import 'if_then_card.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,9 +53,18 @@ class MyApp extends StatelessWidget {
           displayColor: const Color(0xff00053A),
         ),
       ),
-      home: MyHomePage(
-        title: 'if then Method',
-      ),
+      home: StreamBuilder<User>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+            if (snapshot.hasData) {
+              return MyHomePage(title: 'if then Method');
+            } else {
+              // return Container(child: LinearProgressIndicator());
+              // return Container(child: CircularProgressIndicator());
+              return AuthPage();
+              // return MyHomePage(title: 'if then Method');
+            }
+          }),
     );
   }
 }
