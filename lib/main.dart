@@ -15,8 +15,10 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+FirebaseAuth auth = FirebaseAuth.instance;
+
 class MyApp extends StatelessWidget {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  // final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +59,16 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
             if (snapshot.hasData) {
-              return MyHomePage(title: 'if then Method');
+              // print(snapshot);
+              // User hoge = snapshot.data;
+              return MyHomePage(
+                title: 'if then Method',
+                user: snapshot.data,
+              );
             } else {
               // return Container(child: LinearProgressIndicator());
               // return Container(child: CircularProgressIndicator());
               return AuthPage();
-              // return MyHomePage(title: 'if then Method');
             }
           }),
     );
@@ -70,9 +76,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
+  final User user;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -99,7 +106,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        // leading: Text(widget.user.photoURL),
+        leading: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.network(widget.user.photoURL)),
         title: Text(widget.title),
+        actions: <Widget>[
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
+              PopupMenuItem(
+                child: TextButton(
+                  child: Text('Sign out'),
+                  onPressed: () async {
+                    try {
+                      await auth.signOut();
+                    } catch (e) {
+                      print(e);
+                      return null;
+                    }
+                  },
+                ),
+              )
+            ],
+          )
+        ],
       ),
       body: ReorderableListView(
         onReorder: (int oldIndex, int newIndex) {
