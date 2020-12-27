@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:if_then_method/edit_item_page.dart';
 import 'package:if_then_method/if_then_data.dart';
@@ -176,7 +177,8 @@ class IfThenCard extends StatelessWidget {
                             ),
                             textColor: const Color(0xff00053A),
                             shape: const UnderlineInputBorder(),
-                            onPressed: callBackDeleteCard,
+                            // onPressed: callBackDeleteCard,
+                            onPressed: () {},
                           ),
                         ],
                       ),
@@ -197,7 +199,9 @@ class IfThenCard extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.arrow_circle_up),
                 //TODO: 関数実装
-                onPressed: callBackIncrementScore,
+                // onPressed: callBackIncrementScore,
+                onPressed: () => ifThenData.reference
+                    .update({'score': FieldValue.increment(1)}),
               ),
               // Container(),
               Spacer(
@@ -206,7 +210,8 @@ class IfThenCard extends StatelessWidget {
               //デクリメント
               IconButton(
                 icon: Icon(Icons.arrow_circle_down),
-                onPressed: callBackDecrementScore,
+                onPressed: () => ifThenData.reference
+                    .update({'score': FieldValue.increment(-1)}),
               ),
               Spacer(
                 flex: 1,

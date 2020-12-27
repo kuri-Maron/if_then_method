@@ -1,5 +1,6 @@
 // import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -131,42 +132,44 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: ReorderableListView(
-        onReorder: (int oldIndex, int newIndex) {
-          print('$oldIndex --> $newIndex .');
-          if (oldIndex < newIndex) newIndex -= 1;
-          final IfThenData item = _items.removeAt(oldIndex);
 
-          setState(() {
-            _items.insert(newIndex, item);
-          });
-        },
-        children: [
-          for (IfThenData item in _items)
-            IfThenCard(
-              item,
-              callBackIncrementScore: () {
-                setState(() {
-                  item.score++;
-                });
-              },
-              callBackDecrementScore: () {
-                setState(() {
-                  item.score--;
-                });
-              },
-              callBackDeleteCard: () {
-                deleteCard(item);
-              },
-              callBackEditCard: (IfThenData newItem) {
-                if (newItem != null)
-                  setState(() {
-                    item = newItem;
-                  });
-              },
-            ),
-        ],
-      ),
+      // body: ReorderableListView(
+      //   onReorder: (int oldIndex, int newIndex) {
+      //     print('$oldIndex --> $newIndex .');
+      //     if (oldIndex < newIndex) newIndex -= 1;
+      //     final IfThenData item = _items.removeAt(oldIndex);
+      //
+      //     setState(() {
+      //       _items.insert(newIndex, item);
+      //     });
+      //   },
+      //   children: [
+      //     for (IfThenData item in _items)
+      //       IfThenCard(
+      //         item,
+      //         callBackIncrementScore: () {
+      //           setState(() {
+      //             item.score++;
+      //           });
+      //         },
+      //         callBackDecrementScore: () {
+      //           setState(() {
+      //             item.score--;
+      //           });
+      //         },
+      //         callBackDeleteCard: () {
+      //           deleteCard(item);
+      //         },
+      //         callBackEditCard: (IfThenData newItem) {
+      //           if (newItem != null)
+      //             setState(() {
+      //               item = newItem;
+      //             });
+      //         },
+      //       ),
+      //   ],
+      // ),
+      body: _buildBody(context),
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
         onPressed: () async {
@@ -185,5 +188,43 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('users_subCollection')
+          .doc("testUser1")
+          .collection('ifThenList')
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildReorderableList(context, snapshot.data.docs);
+      },
+    );
+  }
+
+  Widget _buildReorderableList(
+      BuildContext context, List<DocumentSnapshot> snapshot) {
+    return ReorderableListView(
+      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+      onReorder: (int oldIndex, int newIndex) {
+        print('$oldIndex --> $newIndex .');
+        if (oldIndex < newIndex) newIndex -= 1;
+        // TODO firestoreでの並び替えロジック実装
+        // final IfThenData item = _items.removeAt(oldIndex);
+        //
+        // setState(() {
+        //   _items.insert(newIndex, item);
+        // });
+      },
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+    final ifThenData = IfThenData.fromSnapshot(data);
+
+    return IfThenCard(ifThenData);
   }
 }

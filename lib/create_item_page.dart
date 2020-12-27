@@ -1,7 +1,7 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:if_then_method/if_then_data.dart';
 
 class CreateItemPage extends StatefulWidget {
   @override
@@ -100,17 +100,30 @@ class _CreateItemPageState extends State<CreateItemPage> {
                             const Color(0xff00053A),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             this._formKey.currentState.save();
-                            IfThenData item = IfThenData(
-                              key: UniqueKey(),
-                              ifText: _ifText,
-                              thenText: _thenText,
-                              exceptionText: _exceptionText,
-                            );
-                            // };
-                            Navigator.of(context).pop(item);
+                            CollectionReference ifThenlist = FirebaseFirestore
+                                .instance
+                                .collection('users_subCollection')
+                                .doc("testUser1")
+                                .collection('ifThenList');
+
+                            await ifThenlist.add({
+                              'ifText': _ifText,
+                              'thenText': _thenText,
+                              'exceptionText': _exceptionText,
+                              "score": 0,
+                            });
+                            Navigator.of(context).pop();
+
+                            // IfThenData item = IfThenData(
+                            //   key: UniqueKey(),
+                            //   ifText: _ifText,
+                            //   thenText: _thenText,
+                            //   exceptionText: _exceptionText,
+                            // );
+                            // Navigator.of(context).pop(item);
                           }
                         },
                         child: Text('OK'),
