@@ -87,23 +87,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<IfThenData> _items = List<IfThenData>.generate(
-      2,
-      (index) => IfThenData(
-            key: UniqueKey(),
-            ifText: 'hoge',
-            thenText: 'fuga',
-            exceptionText: 'bar',
-          ));
+  num maxOrder = 0;
 
   @override
   Widget build(BuildContext context) {
-    Function deleteCard = (IfThenData item) {
-      setState(() {
-        // _items.removeAt(i);
-        _items.remove(item);
-      });
-    };
+    // Function deleteCard = (IfThenData item) {
+    //   setState(() {
+    //     // _items.removeAt(i);
+    //     _items.remove(item);
+    //   });
+    // };
 
     return Scaffold(
       appBar: AppBar(
@@ -177,10 +170,6 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => CreateItemPage()),
           );
-          if (item != null)
-            setState(() {
-              _items.add(item);
-            });
         },
         // backgroundColor: const Color(0xff32397C),
         backgroundColor: Colors.pink,
@@ -196,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
           .collection('users_subCollection')
           .doc("testUser1")
           .collection('ifThenList')
+          .orderBy('order', descending: true)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
@@ -224,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final ifThenData = IfThenData.fromSnapshot(data);
-
+    if (maxOrder > ifThenData.order) maxOrder = ifThenData.order;
     return IfThenCard(ifThenData);
   }
 }

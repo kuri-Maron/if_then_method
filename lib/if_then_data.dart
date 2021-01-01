@@ -15,10 +15,12 @@ class IfThenData {
         assert(map['thenText'] != null),
         assert(map['exceptionText'] != null),
         assert(map['score'] != null),
+        assert(map['order'] != null),
         ifText = map['ifText'],
         thenText = map['thenText'],
         exceptionText = map['exceptionText'],
         score = map['score'],
+        order = map['order'],
         key = UniqueKey();
 
   IfThenData.fromSnapshot(DocumentSnapshot snapshot)
@@ -30,4 +32,6 @@ class IfThenData {
   String exceptionText;
   int score;
   DocumentReference reference;
+  // double order;
+  num order;
 }
