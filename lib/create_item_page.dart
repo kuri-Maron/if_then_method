@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CreateItemPage extends StatefulWidget {
+  final num maxOrder;
+
+  CreateItemPage(this.maxOrder);
+
   @override
   _CreateItemPageState createState() => _CreateItemPageState();
 }
@@ -113,7 +117,8 @@ class _CreateItemPageState extends State<CreateItemPage> {
                               'ifText': _ifText,
                               'thenText': _thenText,
                               'exceptionText': _exceptionText,
-                              "score": 0,
+                              'score': 0,
+                              'order': widget.maxOrder + 100,
                             });
                             Navigator.of(context).pop();
 

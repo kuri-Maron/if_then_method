@@ -21,7 +21,8 @@ class IfThenData {
         exceptionText = map['exceptionText'],
         score = map['score'],
         order = map['order'],
-        key = UniqueKey();
+        // key = UniqueKey();
+        key = ValueKey(reference.id);
 
   IfThenData.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data(), reference: snapshot.reference);

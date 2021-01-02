@@ -178,7 +178,9 @@ class IfThenCard extends StatelessWidget {
                             textColor: const Color(0xff00053A),
                             shape: const UnderlineInputBorder(),
                             // onPressed: callBackDeleteCard,
-                            onPressed: () {},
+                            onPressed: () {
+                              ifThenData.reference.delete();
+                            },
                           ),
                         ],
                       ),

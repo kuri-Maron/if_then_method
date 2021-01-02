@@ -166,9 +166,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         //TODO: 関数の実装
         onPressed: () async {
-          var item = await Navigator.push(
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreateItemPage()),
+            MaterialPageRoute(builder: (context) => CreateItemPage(maxOrder)),
           );
         },
         // backgroundColor: const Color(0xff32397C),
@@ -201,7 +201,30 @@ class _MyHomePageState extends State<MyHomePage> {
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
       onReorder: (int oldIndex, int newIndex) {
         print('$oldIndex --> $newIndex .');
-        if (oldIndex < newIndex) newIndex -= 1;
+        DocumentReference documentReference = snapshot[oldIndex].reference;
+        if (newIndex == 0) {
+          print('トップへソート！');
+          num newOrder = snapshot[newIndex].data()['order'] + 100;
+          documentReference.update({'order': newOrder});
+        } else if (newIndex == snapshot.length) {
+          newIndex -= 1;
+          print('ボトムへソート！');
+          num newOrder = (0 + snapshot[newIndex].data()['order']) / 2;
+          documentReference.update({'order': newOrder});
+        }
+        // 要素を下へソートしたとき
+        else if (oldIndex < newIndex) {
+          newIndex -= 1;
+          var previousOrder = snapshot[newIndex].data()['order'];
+          var nextOrder = snapshot[newIndex + 1].data()['order'];
+          documentReference.update({'order': (previousOrder + nextOrder) / 2});
+          print('previous: $previousOrder, next: $nextOrder');
+        } else if (oldIndex > newIndex) {
+          var nextOrder = snapshot[newIndex].data()['order'];
+          var previousOrder = snapshot[newIndex - 1].data()['order'];
+          documentReference.update({'order': (previousOrder + nextOrder) / 2});
+          print('previous: $previousOrder, next: $nextOrder');
+        }
         // TODO firestoreでの並び替えロジック実装
         // final IfThenData item = _items.removeAt(oldIndex);
         //
@@ -214,7 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final ifThenData = IfThenData.fromSnapshot(data);
-    if (maxOrder > ifThenData.order) maxOrder = ifThenData.order;
+    if (maxOrder < ifThenData.order) maxOrder = ifThenData.order;
     return IfThenCard(ifThenData);
   }
 }
