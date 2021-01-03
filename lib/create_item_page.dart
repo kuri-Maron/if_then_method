@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CreateItemPage extends StatefulWidget {
+  final User user;
   final num maxOrder;
-
-  CreateItemPage(this.maxOrder);
+  CreateItemPage(this.user, this.maxOrder);
 
   @override
   _CreateItemPageState createState() => _CreateItemPageState();
@@ -110,7 +111,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                             CollectionReference ifThenlist = FirebaseFirestore
                                 .instance
                                 .collection('users_subCollection')
-                                .doc("testUser1")
+                                .doc(widget.user.uid)
                                 .collection('ifThenList');
 
                             await ifThenlist.add({

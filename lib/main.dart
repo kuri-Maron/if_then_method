@@ -81,7 +81,6 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
   final User user;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -168,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreateItemPage(maxOrder)),
+            MaterialPageRoute(
+                builder: (context) => CreateItemPage(widget.user, maxOrder)),
           );
         },
         // backgroundColor: const Color(0xff32397C),
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('users_subCollection')
-          .doc("testUser1")
+          .doc(widget.user.uid)
           .collection('ifThenList')
           .orderBy('order', descending: true)
           .snapshots(),

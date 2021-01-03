@@ -146,13 +146,13 @@ class IfThenCard extends StatelessWidget {
                             textColor: const Color(0xff00053A),
                             shape: const UnderlineInputBorder(),
                             onPressed: () async {
-                              var item = await Navigator.push(
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         EditItemPage(ifThenData)),
                               );
-                              callBackEditCard(item);
+                              // callBackEditCard(item);
                             },
                           ),
                           FlatButton(
