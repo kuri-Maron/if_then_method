@@ -62,7 +62,11 @@ class IfThenCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Text(ifThenData.ifText),
+                        Flexible(
+                          child: Text(
+                            ifThenData.ifText,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -89,7 +93,9 @@ class IfThenCard extends StatelessWidget {
                       bottom: 8.0,
                     ),
                     child: Row(
-                      children: [Text(ifThenData.thenText)],
+                      children: [
+                        Flexible(child: Text(ifThenData.thenText)),
+                      ],
                     ),
                   ),
                 ],
@@ -108,12 +114,14 @@ class IfThenCard extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(
-                              'exception',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Text(
+                                'exception',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             )
                           ],
