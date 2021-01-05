@@ -163,18 +163,19 @@ class IfThenCard extends StatelessWidget {
                               // callBackEditCard(item);
                             },
                           ),
-                          FlatButton(
-                            child: const Text(
-                              'アーカイブ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                            ),
-                            textColor: const Color(0xff00053A),
-                            shape: const UnderlineInputBorder(),
-                            onPressed: () {},
-                          ),
+                          // TODO: リリース後に、実装予定（push通知が優先度高）
+                          // FlatButton(
+                          //   child: const Text(
+                          //     'アーカイブ',
+                          //     style: TextStyle(
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 15,
+                          //     ),
+                          //   ),
+                          //   textColor: const Color(0xff00053A),
+                          //   shape: const UnderlineInputBorder(),
+                          //   onPressed: () {},
+                          // ),
                           FlatButton(
                             child: const Text(
                               '削除',
