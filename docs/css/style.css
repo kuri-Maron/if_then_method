@@ -1,0 +1,24 @@
+body {
+  background-color: #0d162b;
+  color: #0d162b;
+}
+
+.container {
+  background-color: #fff;
+  min-height: 85vmin;
+  max-height: 100%;
+}
+
+.title {
+  font-weight: bold;
+}
+
+h2 {
+  background-color: #0d162b;
+  color: #fff;
+  padding: 1%;
+}
+
+footer {
+  background-color: #fff;
+}
