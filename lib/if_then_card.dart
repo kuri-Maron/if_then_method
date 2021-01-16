@@ -19,6 +19,7 @@ class IfThenCard extends StatelessWidget {
   final Key key;
   final Function callBackIncrementScore;
   final Function callBackDecrementScore;
+
   final Function callBackDeleteCard;
   final Function callBackEditCard;
 
@@ -135,7 +136,9 @@ class IfThenCard extends StatelessWidget {
                           bottom: 8.0,
                         ),
                         child: Row(
-                          children: [Text(ifThenData.exceptionText)],
+                          children: [
+                            Flexible(child: Text(ifThenData.exceptionText))
+                          ],
                         ),
                       ),
                       //ボタン配置の行

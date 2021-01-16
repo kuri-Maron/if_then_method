@@ -76,6 +76,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+enum MenuList { SignOut, HowTO, SortOrderDesc }
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title, this.user}) : super(key: key);
 
@@ -106,20 +108,26 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           PopupMenuButton(
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
+            onSelected: (MenuList value) async {
+              switch (value) {
+                case MenuList.SignOut:
+                  try {
+                    await auth.signOut();
+                  } catch (e) {
+                    print(e);
+                    return null;
+                  }
+                  print(value);
+                  break;
+                default:
+                  print(value);
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuList>>[
               PopupMenuItem(
-                child: TextButton(
-                  child: Text('Sign out'),
-                  onPressed: () async {
-                    try {
-                      await auth.signOut();
-                    } catch (e) {
-                      print(e);
-                      return null;
-                    }
-                  },
-                ),
-              )
+                value: MenuList.SignOut,
+                child: Text('Sign out'),
+              ),
             ],
           )
         ],
