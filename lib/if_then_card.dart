@@ -3,24 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:if_then_method/edit_item_page.dart';
 import 'package:if_then_method/if_then_data.dart';
 
+// リストビューの各アイテムWidget
 class IfThenCard extends StatelessWidget {
   IfThenCard(
     this.ifThenData, {
     Key key,
-    this.callBackIncrementScore,
-    this.callBackDecrementScore,
-    this.callBackDeleteCard,
-    this.callBackEditCard,
+    // this.callBackIncrementScore,
+    // this.callBackDecrementScore,
+    // this.callBackDeleteCard,
+    // this.callBackEditCard,
   })  : key = ifThenData.key,
-// score = score,
         super(key: key);
 
   final IfThenData ifThenData;
   final Key key;
-  final Function callBackIncrementScore;
-  final Function callBackDecrementScore;
-  final Function callBackDeleteCard;
-  final Function callBackEditCard;
+
+  // firestore連携前のメソッド群
+  // final Function callBackIncrementScore;
+  // final Function callBackDecrementScore;
+  // final Function callBackDeleteCard;
+  // final Function callBackEditCard;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class IfThenCard extends StatelessWidget {
                 color: const Color(0xff00053A),
               ),
               child: Column(
+                // TODO: 随所、コード共通化したい
                 children: <Widget>[
                   // 1行目
                   Padding(
@@ -62,11 +65,7 @@ class IfThenCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Flexible(
-                          child: Text(
-                            ifThenData.ifText,
-                          ),
-                        ),
+                        Flexible(child: Text(ifThenData.ifText)),
                       ],
                     ),
                   ),
@@ -114,14 +113,12 @@ class IfThenCard extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Flexible(
-                              child: Text(
-                                'exception',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            Text(
+                              'exception',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
@@ -135,7 +132,9 @@ class IfThenCard extends StatelessWidget {
                           bottom: 8.0,
                         ),
                         child: Row(
-                          children: [Text(ifThenData.exceptionText)],
+                          children: [
+                            Flexible(child: Text(ifThenData.exceptionText))
+                          ],
                         ),
                       ),
                       //ボタン配置の行
@@ -160,7 +159,6 @@ class IfThenCard extends StatelessWidget {
                                     builder: (context) =>
                                         EditItemPage(ifThenData)),
                               );
-                              // callBackEditCard(item);
                             },
                           ),
                           // TODO: リリース後に、実装予定（push通知が優先度高）
@@ -210,11 +208,9 @@ class IfThenCard extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.arrow_circle_up),
                 //TODO: 関数実装
-                // onPressed: callBackIncrementScore,
                 onPressed: () => ifThenData.reference
                     .update({'score': FieldValue.increment(1)}),
               ),
-              // Container(),
               Spacer(
                 flex: 3,
               ),
@@ -229,8 +225,6 @@ class IfThenCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                // child: Text('score: ${_index}'),
-                // child: Text('score: ${widget.score}'),
                 child: Text('score: ${ifThenData.score}'),
               ),
             ],
@@ -240,16 +234,3 @@ class IfThenCard extends StatelessWidget {
     );
   }
 }
-
-// class _IfThenCardState extends State<IfThenCard> {
-//   int _score;
-//   @override
-//   void initState() {
-//     super.initState();
-//     _score = widget.score;
-//   }
-//
-//
-//
-//
-// }

@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:if_then_method/if_then_data.dart';
 
+// TODO: 作成と編集のclassを一つにまとめれないか検討する
+// 編集ページ
 class EditItemPage extends StatefulWidget {
   EditItemPage(this.ifThenData);
   final IfThenData ifThenData;
@@ -38,12 +40,7 @@ class _EditItemPageState extends State<EditItemPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    // buildTextFormField(
-                    //   _ifText,
-                    //   labelText: 'if',
-                    //   hintText: 'もし〜ならば',
-                    //   shouldValidate: true,
-                    // ),
+                    // TODO: 作成と編集で関数の共通化するべき（または、ページごと）
                     TextFormField(
                       style: TextStyle(
                         color: Colors.white,
@@ -73,7 +70,6 @@ class _EditItemPageState extends State<EditItemPage> {
                         hintText: '〜する',
                       ),
                       validator: (value) {
-                        // TODO： テキストカラーを白にする
                         if (value.isEmpty) {
                           return '必須入力です';
                         }
@@ -117,15 +113,6 @@ class _EditItemPageState extends State<EditItemPage> {
                               'order': widget.ifThenData.order,
                             });
                             Navigator.of(context).pop();
-                            // IfThenData item = IfThenData(
-                            //   key: UniqueKey(),
-                            //   ifText: _ifText,
-                            //   thenText: _thenText,
-                            //   exceptionText: _exceptionText,
-                            //   score: widget.ifThenData.score,
-                            // );
-                            // // };
-                            // Navigator.of(context).pop(item);
                           }
                         },
                         child: Text('OK'),
@@ -142,34 +129,3 @@ class _EditItemPageState extends State<EditItemPage> {
     );
   }
 }
-
-// todo コールバッグ対応のlesswidgetか、関数で原始的に条件分岐させるか？（汎用性低い）
-//   TextFormField buildTextFormField(
-//   String state, {
-//   String labelText,
-//   String hintText,
-//   bool shouldValidate,
-// }) {
-//   return TextFormField(
-//     style: TextStyle(
-//       color: Colors.white,
-//     ),
-//     decoration: InputDecoration(
-//       labelText: labelText,
-//       hintText: hintText,
-//     ),
-//     validator: shouldValidate
-//         ? (value) {
-//             if (value.isEmpty) {
-//               return '必須入力項目です';
-//             }
-//             return null;
-//           }
-//         : null,
-//     onSaved: (value) => setState(() {
-//       print('state: $state');
-//       _ifText = value;
-//       print('state: $state');
-//     }),
-//   );
-// }

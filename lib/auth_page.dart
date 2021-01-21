@@ -5,9 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:sign_button/sign_button.dart' as google;
 
+// 認証ページ
 class AuthPage extends StatelessWidget {
+  // Googleログイン用メソッド
   Future<UserCredential> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
@@ -32,6 +33,7 @@ class AuthPage extends StatelessWidget {
     }
   }
 
+  // Appleログイン用メソッド
   Future<UserCredential> signInWithApple() async {
     try {
       final result = await AppleSignIn.performRequests([

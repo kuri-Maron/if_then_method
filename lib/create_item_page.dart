@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// アイテム作成ページ
 class CreateItemPage extends StatefulWidget {
   final User user;
+  // 次に登録するアイテムのorderを算出するために利用
   final num maxOrder;
   CreateItemPage(this.user, this.maxOrder);
 
@@ -25,6 +27,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
       appBar: AppBar(
         title: Text('CREATE'),
       ),
+      // スクロール可能な画面中央配置
       body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -40,12 +43,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    // buildTextFormField(
-                    //   _ifText,
-                    //   labelText: 'if',
-                    //   hintText: 'もし〜ならば',
-                    //   shouldValidate: true,
-                    // ),
+                    // TODO: 汎用性のある関数に抽出
                     TextFormField(
                       style: TextStyle(
                         color: Colors.white,
@@ -97,6 +95,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      // 作成ボタン
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
@@ -122,14 +121,6 @@ class _CreateItemPageState extends State<CreateItemPage> {
                               'order': widget.maxOrder + 100,
                             });
                             Navigator.of(context).pop();
-
-                            // IfThenData item = IfThenData(
-                            //   key: UniqueKey(),
-                            //   ifText: _ifText,
-                            //   thenText: _thenText,
-                            //   exceptionText: _exceptionText,
-                            // );
-                            // Navigator.of(context).pop(item);
                           }
                         },
                         child: Text('OK'),
@@ -146,34 +137,3 @@ class _CreateItemPageState extends State<CreateItemPage> {
     );
   }
 }
-
-// todo コールバッグ対応のlesswidgetか、関数で原始的に条件分岐させるか？（汎用性低い）
-//   TextFormField buildTextFormField(
-//   String state, {
-//   String labelText,
-//   String hintText,
-//   bool shouldValidate,
-// }) {
-//   return TextFormField(
-//     style: TextStyle(
-//       color: Colors.white,
-//     ),
-//     decoration: InputDecoration(
-//       labelText: labelText,
-//       hintText: hintText,
-//     ),
-//     validator: shouldValidate
-//         ? (value) {
-//             if (value.isEmpty) {
-//               return '必須入力項目です';
-//             }
-//             return null;
-//           }
-//         : null,
-//     onSaved: (value) => setState(() {
-//       print('state: $state');
-//       _ifText = value;
-//       print('state: $state');
-//     }),
-//   );
-// }

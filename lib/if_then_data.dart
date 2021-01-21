@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+// データモデルクラス
 class IfThenData {
+  // デフォルトのコンストラクタ
   IfThenData({
     @required this.key,
     this.ifText = '',
@@ -10,6 +12,7 @@ class IfThenData {
     this.score = 0,
   });
 
+  // Mapから変換する名前付きコンストラクタ
   IfThenData.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['ifText'] != null),
         assert(map['thenText'] != null),
@@ -24,15 +27,16 @@ class IfThenData {
         // key = UniqueKey();
         key = ValueKey(reference.id);
 
+  // Snapshotから変換する名前付きコンストラクタ
   IfThenData.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data(), reference: snapshot.reference);
 
+  // フィールド
   Key key;
   String ifText;
   String thenText;
   String exceptionText;
   int score;
   DocumentReference reference;
-  // double order;
   num order;
 }
