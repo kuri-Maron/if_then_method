@@ -1,16 +1,16 @@
 # if_then_method
 
-シンプルなif thenアプリ。flutterのポートフォリオとして作成。dockerとci/cdまではやりたい。
+## はじめに
+シンプルなif thenアプリを作成。
+FlutterとFirebase(Firestore,Authentication)で開発しています。
 
-## Getting Started
+## AppStore
+App Storeの[リンク](https://apps.apple.com/jp/app/if-then-%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89/id1547511045)
 
-This project is a starting point for a Flutter application.
+## if then ルールとは？
+この[記事](https://news.mynavi.jp/article/20200908-1257427/)を読むことで、概要を掴むことができると思います。
 
-A few resources to get you started if this is your first Flutter project:
+### 参考文献(if thenについて)
+[論文](https://cancercontrol.cancer.gov/sites/default/files/2020-06/goal_intent_attain.pdf)が一番正確だと思います。
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
