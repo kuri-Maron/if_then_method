@@ -6,17 +6,16 @@ import 'package:if_then_method/if_then_data.dart';
 // リストビューの各アイテムWidget
 class IfThenCard extends StatelessWidget {
   IfThenCard(
-    this.ifThenData, {
-    Key key,
+    this.ifThenData,
+    // Key key,
     // this.callBackIncrementScore,
     // this.callBackDecrementScore,
     // this.callBackDeleteCard,
     // this.callBackEditCard,
-  })  : key = ifThenData.key,
-        super(key: key);
+  ) : super(key: ifThenData.key);
 
   final IfThenData ifThenData;
-  final Key key;
+  // final Key key;
 
   // firestore連携前のメソッド群
   // final Function callBackIncrementScore;
@@ -27,6 +26,7 @@ class IfThenCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
